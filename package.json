@@ -1,0 +1,11 @@
+{
+  "name": "dev-infra-dashboard",
+  "private": true,
+  "type": "module",
+  "description": "Static developer infrastructure inventory dashboard.",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "validate": "node scripts/validate-data.mjs",
+    "test": "node scripts/validate-data.mjs && node --test \"tests/*.test.mjs\""
+  }
+}
