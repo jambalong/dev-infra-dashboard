@@ -1,6 +1,6 @@
 # Developer Infrastructure Dashboard
 
-A static dashboard that tracks personal projects, hosting providers, databases, integrations and infrastructure costs. Plain HTML, CSS and JavaScript. Inventory data lives in JSON files. Hosted on GitHub Pages. No backend, no build step, no dependencies.
+A static dashboard that tracks personal projects, hosting providers, databases, integrations and infrastructure costs. Plain HTML, CSS and JavaScript. Inventory data lives in JSON files. Hosted on GitHub Pages at [infra.ambalong.dev](https://infra.ambalong.dev). No backend, no build step, no dependencies.
 
 - **Overview**: summary cards, project status, provider distribution, known costs.
 - **Projects**: project cards and detail pages, with search and status/type filters.

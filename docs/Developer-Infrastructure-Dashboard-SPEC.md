@@ -470,10 +470,10 @@ Use the official GitHub Pages deployment workflow and GitHub-provided deployment
 ### URL
 
 ```text
-https://<github-username>.github.io/dev-infra-dashboard/
+https://infra.ambalong.dev/
 ```
 
-No custom domain is required.
+The site is also reachable at `https://<github-username>.github.io/dev-infra-dashboard/` until the custom domain is set up, and that address then redirects. See [MAINTAINING.md](MAINTAINING.md) for the DNS and Pages steps.
 
 ---
 

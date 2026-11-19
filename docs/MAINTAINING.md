@@ -70,9 +70,22 @@ Each task has `id`, `title`, optional `cadence`, `due` (`YYYY-MM-DD` or `null`),
 
 Deployment is automatic: pushing to `main` runs `.github/workflows/deploy.yml`, which validates the data, runs tests, stages only `index.html`, `assets/` and `data/`, and publishes them with the official GitHub Pages actions. Pull requests run the validation job only.
 
-**One-time setup:** in the GitHub repository go to *Settings → Pages → Build and deployment → Source* and choose **GitHub Actions**. The site is then served at `https://<username>.github.io/dev-infra-dashboard/`.
+**One-time setup:** in the GitHub repository go to *Settings → Pages → Build and deployment → Source* and choose **GitHub Actions**. The site is first served at `https://jambalong.github.io/dev-infra-dashboard/`. After the custom domain below is set up, that address redirects to `https://infra.ambalong.dev/`.
 
-Subpath safety: the HTML and JS use only relative URLs, and the data directory is resolved relative to `assets/js/data.js`. Do not add root-absolute paths such as `/data/...`. To check a subpath locally, run `node scripts/serve.mjs --base /dev-infra-dashboard/`.
+### Custom domain: infra.ambalong.dev
+
+Do these steps after the docs and site are deployed. The DNS record is made at your domain provider, not in this repo.
+
+1. Add a DNS record: type `CNAME`, name `infra`, value `jambalong.github.io`. Add only this one record. Do not add a wildcard (`*`) record, and leave the existing `ambalong.dev` and `lunr.fast` records alone.
+2. In the repository go to *Settings → Pages → Custom domain*, enter `infra.ambalong.dev` and save. Wait for the DNS check to pass.
+3. Turn on **Enforce HTTPS** once the certificate is issued (this can take a few minutes).
+4. Recommended: verify `ambalong.dev` in your GitHub account under *Settings → Pages* (a one-time TXT record) so nobody else can claim your subdomains.
+
+No `CNAME` file is needed in the repo, because the site is deployed with GitHub Actions and the domain is stored in the Pages settings. If you ever unpublish the dashboard, delete the `infra` DNS record too, so the subdomain cannot be taken over.
+
+The domain is set per repository, so it does not affect other Pages sites such as LunrFast (`lunr.fast`).
+
+Path safety: the HTML and JS use only relative URLs, and the data directory is resolved relative to `assets/js/data.js`. The site works at the custom domain root and at the `/dev-infra-dashboard/` subpath. Do not add root-absolute paths such as `/data/...`. To check a subpath locally, run `node scripts/serve.mjs --base /dev-infra-dashboard/`.
 
 ## Security review before pushing
 
