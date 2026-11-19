@@ -1,5 +1,5 @@
 import { h, externalLink } from '../dom.js';
-import { billingLabel, costBadge, emptyState, pageHeader } from '../components.js';
+import { billingLabel, costBadge, emptyState, monogram, pageHeader } from '../components.js';
 import { CATEGORIES, ROLES, labelOf } from '../schema.js';
 
 const filters = { q: '', category: '' };
@@ -34,7 +34,7 @@ function providerCard(provider) {
     h(
       'div',
       { class: 'card-head' },
-      h('h3', null, provider.name),
+      h('div', { class: 'card-title' }, monogram(provider.name), h('h3', null, provider.name)),
       h('span', { class: 'badge badge-neutral' }, labelOf(CATEGORIES, provider.category)),
     ),
     h(

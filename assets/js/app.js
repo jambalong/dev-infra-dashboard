@@ -24,7 +24,7 @@ let ctx = null;
 /* ---------- Theme: system | light | dark ---------- */
 
 const THEMES = ['system', 'light', 'dark'];
-const themeBtn = document.getElementById('theme-toggle');
+const themeButtons = [...document.querySelectorAll('[data-theme-set]')];
 
 function currentTheme() {
   const saved = readString(KEYS.theme);
@@ -34,15 +34,17 @@ function currentTheme() {
 function applyTheme(theme) {
   if (theme === 'system') root.removeAttribute('data-theme');
   else root.setAttribute('data-theme', theme);
-  themeBtn.textContent = `Theme: ${theme[0].toUpperCase()}${theme.slice(1)}`;
+  for (const b of themeButtons) b.setAttribute('aria-pressed', String(b.dataset.themeSet === theme));
 }
 
-themeBtn.addEventListener('click', () => {
-  const next = THEMES[(THEMES.indexOf(currentTheme()) + 1) % THEMES.length];
-  if (next === 'system') remove(KEYS.theme);
-  else writeString(KEYS.theme, next);
-  applyTheme(next);
-});
+for (const b of themeButtons) {
+  b.addEventListener('click', () => {
+    const next = b.dataset.themeSet;
+    if (next === 'system') remove(KEYS.theme);
+    else writeString(KEYS.theme, next);
+    applyTheme(next);
+  });
+}
 applyTheme(currentTheme());
 
 /* ---------- Mobile navigation ---------- */

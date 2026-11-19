@@ -23,6 +23,8 @@ export function costBadge(provider) {
 
 export const billingLabel = (provider) => (provider.costInfo.billing ? labelOf(BILLING, provider.costInfo.billing) : '—');
 
+export const monogram = (name) => h('span', { class: 'mono-tile', 'aria-hidden': 'true' }, (name ?? '?').trim().charAt(0).toUpperCase());
+
 export function summaryCard(label, value, sub, extraClass = '') {
   return h(
     'div',
@@ -76,7 +78,7 @@ export function projectCard(project) {
     h(
       'div',
       { class: 'card-head' },
-      h('h3', null, h('a', { href: `#/projects/${encodeURIComponent(project.id)}` }, project.name)),
+      h('div', { class: 'card-title' }, monogram(project.name), h('h3', null, h('a', { href: `#/projects/${encodeURIComponent(project.id)}` }, project.name))),
       statusBadge(project.status),
     ),
     h('p', { class: project.description ? 'desc' : 'desc muted' }, project.description ?? 'No description.'),
