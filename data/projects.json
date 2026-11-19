@@ -109,11 +109,13 @@
         {
           "role": "database",
           "provider": "neon",
-          "state": "planned"
+          "state": "planned",
+          "label": "PostgreSQL"
         }
       ],
       "notes": [
         "Not started yet. Planned as a Ruby on Rails 8 monolith with Hotwire and Tailwind CSS.",
+        "Planned to run on Render with Neon PostgreSQL.",
         "Requires sign-in; not publicly accessible."
       ]
     }
