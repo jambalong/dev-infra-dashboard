@@ -145,6 +145,22 @@
       "notes": [
         "Transactional email."
       ]
+    },
+    {
+      "id": "porkbun",
+      "name": "Porkbun",
+      "category": "domain-dns",
+      "website": "https://porkbun.com",
+      "plan": null,
+      "cost": {
+        "amount": null,
+        "currency": "USD",
+        "billing": "annual"
+      },
+      "freeTier": null,
+      "notes": [
+        "Domain registrar for ambalong.dev and lunr.fast."
+      ]
     }
   ]
 }

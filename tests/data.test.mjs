@@ -15,7 +15,7 @@ test('shipped data passes validation', async () => {
 test('shipped data has the expected projects and providers', async () => {
   const d = await load();
   assert.deepEqual(d.projects.projects.map((p) => p.id), ['personal-website', 'pangu-terminal', 'lunrfast', 'homebase']);
-  assert.equal(d.providers.providers.length, 9);
+  assert.equal(d.providers.providers.length, 10);
 });
 
 test('project/provider relationships resolve both ways', async () => {
@@ -25,14 +25,17 @@ test('project/provider relationships resolve both ways', async () => {
   const neon = inv.providerById.get('neon');
   assert.deepEqual(neon.projects.map((p) => p.id), ['pangu-terminal', 'homebase']);
   const lunrfast = inv.projectById.get('lunrfast');
-  assert.deepEqual(lunrfast.services.map((s) => s.provider), ['expo', 'github-pages', 'supabase', 'buttondown', 'resend']);
+  assert.deepEqual(lunrfast.services.map((s) => s.provider), ['expo', 'github-pages', 'supabase', 'buttondown', 'resend', 'porkbun']);
   assert.equal(inv.projectById.get('homebase').status, 'planned');
 });
 
-test('all providers are recorded as free (owner-confirmed)', async () => {
+test('providers on free plans are recorded as free; the domain registrar stays unknown', async () => {
   const d = await load();
   const inv = buildInventory(d.projects, d.providers, d.maintenance);
-  for (const p of inv.providers) assert.ok(p.costInfo.state === 'free' && p.plan === 'Free', p.id);
+  for (const p of inv.providers) {
+    if (p.id === 'porkbun') assert.equal(p.costInfo.state, 'unknown');
+    else assert.ok(p.costInfo.state === 'free' && p.plan === 'Free', p.id);
+  }
 });
 
 test('missing optional fields and dangling references do not throw', () => {

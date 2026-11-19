@@ -21,6 +21,11 @@
           "role": "integration",
           "provider": "kit",
           "label": "Newsletter"
+        },
+        {
+          "role": "integration",
+          "provider": "porkbun",
+          "label": "Domain: ambalong.dev"
         }
       ],
       "notes": [
@@ -47,6 +52,11 @@
           "role": "database",
           "provider": "neon",
           "label": "PostgreSQL"
+        },
+        {
+          "role": "integration",
+          "provider": "porkbun",
+          "label": "Subdomain of ambalong.dev"
         }
       ],
       "notes": [
@@ -88,6 +98,11 @@
           "role": "integration",
           "provider": "resend",
           "label": "Email codes"
+        },
+        {
+          "role": "integration",
+          "provider": "porkbun",
+          "label": "Domain: lunr.fast"
         }
       ],
       "notes": [
