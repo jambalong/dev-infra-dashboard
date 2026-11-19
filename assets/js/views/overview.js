@@ -15,7 +15,7 @@ export function renderOverview(ctx) {
     const next = nextRenewal(inv);
     if (!next) return summaryCard('Next renewal', 'None set', 'Add a renews date to a service', 'stat-unknown');
     const when = next.days === 0 ? 'today' : `in ${next.days} day${next.days === 1 ? '' : 's'}`;
-    return summaryCard('Next renewal', formatDate(next.date), `${next.service.label ?? next.project.name} · ${when}`);
+    return summaryCard('Next renewal', formatDate(next.date), [next.service.label ?? next.project.name, h('div', null, when)]);
   }
 
   const stats = h(
