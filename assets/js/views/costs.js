@@ -10,6 +10,24 @@ const money = (provider, key) => {
   return v == null ? h('span', { class: 'unknown-text' }, 'Unknown') : formatMoney(v, provider.currency);
 };
 
+const MAX_CHIPS = 4;
+
+/** Compact provider list: priced/unknown/shared ones first, free ones after, long lists end in "+N more". */
+function providerChips(providers, serviceFor) {
+  if (!providers.length) return h('span', { class: 'muted' }, '—');
+  const items = providers
+    .map((prov) => ({ prov, badge: serviceCost(serviceFor(prov), { hideFree: true }) }))
+    .sort((a, b) => Number(Boolean(b.badge)) - Number(Boolean(a.badge)));
+  const shown = items.slice(0, MAX_CHIPS);
+  const rest = items.slice(MAX_CHIPS);
+  return h(
+    'span',
+    { class: 'chips' },
+    shown.map(({ prov, badge }) => h('span', { class: 'chip' }, prov.name, badge)),
+    rest.length ? h('span', { class: 'chip chip-more', title: rest.map((r) => r.prov.name).join(', ') }, `+${rest.length} more`) : null,
+  );
+}
+
 export function knownTotalLabel(summary, key, currency = 'USD') {
   return summary.known === 0 ? 'Unknown' : formatMoney(summary[key], currency);
 }
@@ -44,7 +62,7 @@ export function renderCosts({ inv }) {
       'tr',
       null,
       h('td', null, h('a', { href: `#/projects/${encodeURIComponent(p.id)}` }, p.name)),
-      h('td', null, providers.length ? h('span', { class: 'chips' }, providers.map((x) => h('span', { class: 'chip' }, x.name, serviceCost(serviceFor(x), { hideFree: true })))) : h('span', { class: 'muted' }, '—')),
+      h('td', null, providerChips(providers, serviceFor)),
       h('td', null, cov.providers === 0 ? '—' : `${cov.priced} / ${cov.providers}`),
       h('td', null, cov.unknown ? h('span', { class: 'unknown-text' }, `${cov.unknown} unknown`) : cov.providers ? 'All known' : '—'),
     );
