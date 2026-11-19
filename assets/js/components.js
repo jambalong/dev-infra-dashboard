@@ -21,13 +21,20 @@ export function costBadge(provider) {
   return badge(`${formatMoney(c.amount, provider.currency)}/${per}`, 'blue');
 }
 
-/** Cost for one service: its own price, "Shared" when the provider cost is built from other services, else the provider's cost. */
-export function serviceCost(service) {
+/** Cost for one service (hideFree omits the Free badge for compact lists): its own price, "Shared" when the provider cost is built from other services, else the provider's cost. */
+export function serviceCost(service, { hideFree = false } = {}) {
   const provider = service.providerRef;
   if (!provider) return h('span', { class: 'muted' }, '—');
-  if (service.costInfo.state !== 'unknown') return costBadge({ costInfo: service.costInfo, currency: service.currency });
-  if (provider.costDerived) return h('span', { class: 'muted small' }, 'Shared');
-  return costBadge(provider);
+  let info = provider.costInfo;
+  let currency = provider.currency;
+  if (service.costInfo.state !== 'unknown') {
+    info = service.costInfo;
+    currency = service.currency;
+  } else if (provider.costDerived) {
+    return h('span', { class: 'muted small' }, 'Shared');
+  }
+  if (hideFree && info.state === 'free') return null;
+  return costBadge({ costInfo: info, currency });
 }
 
 export const billingLabel = (provider) => (provider.costInfo.billing ? labelOf(BILLING, provider.costInfo.billing) : '—');

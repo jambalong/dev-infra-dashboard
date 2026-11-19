@@ -44,7 +44,7 @@ export function renderCosts({ inv }) {
       'tr',
       null,
       h('td', null, h('a', { href: `#/projects/${encodeURIComponent(p.id)}` }, p.name)),
-      h('td', null, providers.length ? h('span', { class: 'chips' }, providers.map((x) => h('span', { class: 'chip' }, x.name, ' ', serviceCost(serviceFor(x))))) : h('span', { class: 'muted' }, '—')),
+      h('td', null, providers.length ? h('span', { class: 'chips' }, providers.map((x) => h('span', { class: 'chip' }, x.name, serviceCost(serviceFor(x), { hideFree: true })))) : h('span', { class: 'muted' }, '—')),
       h('td', null, cov.providers === 0 ? '—' : `${cov.priced} / ${cov.providers}`),
       h('td', null, cov.unknown ? h('span', { class: 'unknown-text' }, `${cov.unknown} unknown`) : cov.providers ? 'All known' : '—'),
     );
@@ -76,7 +76,7 @@ export function renderCosts({ inv }) {
       'section',
       { class: 'card' },
       h('h2', null, 'By project'),
-      h('p', { class: 'muted small' }, 'Provider plans can be shared between projects, so costs are not split per project. This shows which of each project’s providers have a known cost.'),
+      h('p', { class: 'muted small' }, 'Provider plans can be shared between projects, so costs are not split per project. Providers without a badge are on a free plan.'),
       h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, th('Project'), th('Providers'), th('Priced'), th('Status'))), h('tbody', null, projectRows))),
     ),
   );
