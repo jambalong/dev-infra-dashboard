@@ -1,22 +1,21 @@
-/* Infrastructure Dashboard. Plain CSS, no build step. */
-
+/* Palette: #F8E9A1 yellow, #F76C6C coral, #A8D0E6 light blue, #374785 indigo, #24305E navy. */
 :root {
-  --bg: #ffffff;
+  --bg: #fbfaf4;
   --surface: #ffffff;
-  --surface-2: #f6f8fa;
-  --border: #d1d9e0;
-  --text: #1f2328;
-  --muted: #59636e;
-  --accent: #0969da;
-  --green: #1a7f37;
-  --green-bg: #dafbe1;
-  --blue: #0969da;
-  --blue-bg: #ddf4ff;
-  --yellow: #9a6700;
-  --yellow-bg: #fff8c5;
-  --red: #cf222e;
-  --red-bg: #ffebe9;
-  --gray-bg: #eaeef2;
+  --surface-2: #f1f5fa;
+  --border: #d3deea;
+  --text: #24305e;
+  --muted: #5b678f;
+  --accent: #374785;
+  --green: #1f7a4d;
+  --blue: #374785;
+  --yellow: #8a6a00;
+  --red: #c24349;
+  --gray-bg: #e4ebf4;
+  --green-bg: #dff3e8;
+  --blue-bg: #dcebf5;
+  --yellow-bg: #fbf1c0;
+  --red-bg: #fde3e3;
   --radius: 8px;
   --sidebar-w: 236px;
   --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
@@ -25,42 +24,42 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #0d1117;
-    --surface: #151b23;
-    --surface-2: #1c232c;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8d96a0;
-    --accent: #4493f8;
-    --green: #3fb950;
-    --green-bg: #12261e;
-    --blue: #4493f8;
-    --blue-bg: #121d2f;
-    --yellow: #d29922;
-    --yellow-bg: #272115;
-    --red: #f85149;
-    --red-bg: #2d1214;
-    --gray-bg: #262c36;
+    --bg: #24305e;
+    --surface: #2b3869;
+    --surface-2: #1d2750;
+    --border: #3d4c8a;
+    --text: #f3f6fb;
+    --muted: #a8d0e6;
+    --accent: #a8d0e6;
+    --green: #7fd8a6;
+    --blue: #a8d0e6;
+    --yellow: #f8e9a1;
+    --red: #f76c6c;
+    --gray-bg: #374785;
+    --green-bg: color-mix(in srgb, var(--green) 16%, var(--surface));
+    --blue-bg: color-mix(in srgb, var(--blue) 16%, var(--surface));
+    --yellow-bg: color-mix(in srgb, var(--yellow) 14%, var(--surface));
+    --red-bg: color-mix(in srgb, var(--red) 18%, var(--surface));
   }
 }
 
 :root[data-theme='dark'] {
-  --bg: #0d1117;
-  --surface: #151b23;
-  --surface-2: #1c232c;
-  --border: #30363d;
-  --text: #e6edf3;
-  --muted: #8d96a0;
-  --accent: #4493f8;
-  --green: #3fb950;
-  --green-bg: #12261e;
-  --blue: #4493f8;
-  --blue-bg: #121d2f;
-  --yellow: #d29922;
-  --yellow-bg: #272115;
-  --red: #f85149;
-  --red-bg: #2d1214;
-  --gray-bg: #262c36;
+  --bg: #24305e;
+  --surface: #2b3869;
+  --surface-2: #1d2750;
+  --border: #3d4c8a;
+  --text: #f3f6fb;
+  --muted: #a8d0e6;
+  --accent: #a8d0e6;
+  --green: #7fd8a6;
+  --blue: #a8d0e6;
+  --yellow: #f8e9a1;
+  --red: #f76c6c;
+  --gray-bg: #374785;
+  --green-bg: color-mix(in srgb, var(--green) 16%, var(--surface));
+  --blue-bg: color-mix(in srgb, var(--blue) 16%, var(--surface));
+  --yellow-bg: color-mix(in srgb, var(--yellow) 14%, var(--surface));
+  --red-bg: color-mix(in srgb, var(--red) 18%, var(--surface));
 }
 
 *,
