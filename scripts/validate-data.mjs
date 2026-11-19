@@ -60,10 +60,6 @@ export function validate({ projects, providers, maintenance }) {
     if (!isStr(p.name)) err(`${w}: name is required`);
     oneOf(p.category, CATEGORIES, `${w}.category`);
     if (p.website != null) httpUrl(p.website, `${w}.website`);
-    if (p.icon != null) {
-      if (!/^assets\/icons\/[\w./-]+\.(svg|png|ico|webp)$/.test(p.icon) || p.icon.includes('..')) err(`${w}.icon: must be a relative path under assets/icons/`);
-      else if (!existsSync(new URL(`../${p.icon}`, import.meta.url))) err(`${w}.icon: file not found: ${p.icon}`);
-    }
     if (p.cost != null) {
       const { amount, currency: cur, billing } = p.cost;
       if (amount !== null && (typeof amount !== 'number' || !(amount >= 0))) err(`${w}.cost.amount: must be null (unknown) or a number >= 0`);
@@ -85,6 +81,10 @@ export function validate({ projects, providers, maintenance }) {
     oneOf(p.environment, ENVIRONMENTS, `${w}.environment`, { nullable: true });
     if (p.repository != null) httpUrl(p.repository, `${w}.repository`);
     if (p.website != null) httpUrl(p.website, `${w}.website`);
+    if (p.icon != null) {
+      if (!/^assets\/icons\/[\w./-]+\.(svg|png|ico|webp)$/.test(p.icon) || p.icon.includes('..')) err(`${w}.icon: must be a relative path under assets/icons/`);
+      else if (!existsSync(new URL(`../${p.icon}`, import.meta.url))) err(`${w}.icon: file not found: ${p.icon}`);
+    }
     if (!Array.isArray(p.services)) err(`${w}.services: must be an array`);
     for (const [i, s] of (p.services ?? []).entries()) {
       oneOf(s.role, ROLES, `${w}.services[${i}].role`);
