@@ -202,6 +202,7 @@ nav a.active { background: var(--blue-bg); color: var(--accent); }
 .back { display: inline-flex; margin-bottom: 14px; font-size: 13px; color: var(--muted); }
 .back:hover { color: var(--text); text-decoration: none; }
 section.card + section.card,
+.section + .card,
 .stats + .card,
 .notice + .card { margin-top: 16px; }
 .stats + .notice { margin-top: 12px; }
