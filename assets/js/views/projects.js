@@ -94,6 +94,7 @@ export function renderProjectDetail(ctx, id) {
     ['Status', statusBadge(project.status)],
     ['Type', labelOf(TYPES, project.type)],
     ['Environment', labelOf(ENVIRONMENTS, project.environment)],
+    ['Website', project.website ? externalLink(project.website) : h('span', { class: 'muted' }, 'Not set')],
     ['Repository', repo],
   ];
 

@@ -54,6 +54,7 @@ export function buildInventory(projectsDoc, providersDoc, maintenanceDoc) {
       type: str(p.type),
       environment: str(p.environment),
       repository: str(p.repository),
+      website: str(p.website),
       notes: arr(p.notes).filter(str),
       services: arr(p.services)
         .filter((s) => s && str(s.provider))

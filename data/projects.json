@@ -1,34 +1,56 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "projects": [
     {
       "id": "personal-website",
       "name": "Personal Website",
-      "description": "Personal website.",
+      "description": "Personal site and blog with a few projects and an email signup. Built with Astro and Tailwind CSS, with one React island for the navigation.",
       "status": "active",
       "type": "website",
       "environment": "production",
-      "repository": null,
+      "repository": "https://github.com/jambalong/portfolio",
+      "website": "https://ambalong.dev",
       "services": [
-        { "role": "hosting", "provider": "netlify" },
-        { "role": "integration", "provider": "kit", "label": "Newsletter" }
+        {
+          "role": "hosting",
+          "provider": "netlify"
+        },
+        {
+          "role": "integration",
+          "provider": "kit",
+          "label": "Newsletter"
+        }
       ],
-      "notes": []
+      "notes": [
+        "Static site with Markdown blog posts and an RSS feed.",
+        "Email signup is a plain form that posts to Kit."
+      ]
     },
     {
       "id": "pangu-terminal",
       "name": "Pangu Terminal",
-      "description": "Personal Ruby on Rails application.",
+      "description": "Progression planner and farming optimizer for Wuthering Waves. Tracks the materials you need against your inventory, shows what you can craft instead of farm, and prioritizes what is left to farm.",
       "status": "active",
       "type": "web-application",
       "environment": "production",
-      "repository": null,
+      "repository": "https://github.com/jambalong/pangu-terminal",
+      "website": "https://panguterminal.ambalong.dev",
       "services": [
-        { "role": "hosting", "provider": "render" },
-        { "role": "database", "provider": "neon", "label": "PostgreSQL" }
+        {
+          "role": "hosting",
+          "provider": "render"
+        },
+        {
+          "role": "database",
+          "provider": "neon",
+          "label": "PostgreSQL"
+        }
       ],
-      "notes": []
+      "notes": [
+        "Ruby on Rails app with a REST API and an LLM-based farming advisor.",
+        "Runs on a free tier, so it can take up to a minute to wake after sitting idle."
+      ]
     },
     {
       "id": "lunrfast",
@@ -39,10 +61,26 @@
       "environment": "production",
       "repository": null,
       "services": [
-        { "role": "hosting", "provider": "expo", "label": "iOS / Android app" },
-        { "role": "hosting", "provider": "github-pages", "label": "Landing page" },
-        { "role": "database", "provider": "supabase", "label": "PostgreSQL" },
-        { "role": "integration", "provider": "buttondown", "label": "Waitlist" }
+        {
+          "role": "hosting",
+          "provider": "expo",
+          "label": "iOS / Android app"
+        },
+        {
+          "role": "hosting",
+          "provider": "github-pages",
+          "label": "Landing page"
+        },
+        {
+          "role": "database",
+          "provider": "supabase",
+          "label": "PostgreSQL"
+        },
+        {
+          "role": "integration",
+          "provider": "buttondown",
+          "label": "Waitlist"
+        }
       ],
       "notes": []
     },
@@ -55,8 +93,16 @@
       "environment": null,
       "repository": null,
       "services": [
-        { "role": "hosting", "provider": "render", "state": "planned" },
-        { "role": "database", "provider": "neon", "state": "planned" }
+        {
+          "role": "hosting",
+          "provider": "render",
+          "state": "planned"
+        },
+        {
+          "role": "database",
+          "provider": "neon",
+          "state": "planned"
+        }
       ],
       "notes": []
     }

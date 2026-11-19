@@ -79,6 +79,7 @@ export function validate({ projects, providers, maintenance }) {
     oneOf(p.type, TYPES, `${w}.type`, { nullable: true });
     oneOf(p.environment, ENVIRONMENTS, `${w}.environment`, { nullable: true });
     if (p.repository != null) httpUrl(p.repository, `${w}.repository`);
+    if (p.website != null) httpUrl(p.website, `${w}.website`);
     if (!Array.isArray(p.services)) err(`${w}.services: must be an array`);
     for (const [i, s] of (p.services ?? []).entries()) {
       oneOf(s.role, ROLES, `${w}.services[${i}].role`);
