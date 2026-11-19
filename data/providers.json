@@ -151,16 +151,16 @@
       "name": "Porkbun",
       "category": "domain-dns",
       "website": "https://porkbun.com",
-      "plan": "Domain registration (2 domains)",
+      "plan": "Domain registration",
       "cost": {
-        "amount": 36.56,
+        "amount": null,
         "currency": "USD",
         "billing": "annual"
       },
       "freeTier": null,
       "notes": [
         "Domain registrar for ambalong.dev and lunr.fast.",
-        "ambalong.dev $12.87/year and lunr.fast $23.69/year."
+        "Billed per domain; the cost shown is the total of the domains below."
       ]
     }
   ]

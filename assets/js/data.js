@@ -68,10 +68,25 @@ export function buildInventory(projectsDoc, providersDoc, maintenanceDoc) {
             providerRef,
             label: str(s.label),
             state: str(s.state) ?? 'active',
+            costInfo: normalizeCost(s.cost),
+            currency: s.cost?.currency ?? 'USD',
           };
         }),
     }));
   const projectById = new Map(projects.map((p) => [p.id, p]));
+
+  // A provider with no plan-level cost takes its cost from the priced services that use it
+  // (e.g. a registrar billed per domain). Annual total; services without a cost add nothing,
+  // so a shared item is only counted once.
+  for (const provider of providers) {
+    if (provider.costInfo.state !== 'unknown') continue;
+    const priced = projects.flatMap((p) => p.services).filter((s) => s.providerRef === provider && s.costInfo.state !== 'unknown');
+    if (!priced.length) continue;
+    const annual = Math.round(priced.reduce((sum, s) => sum + s.costInfo.annual, 0) * 100) / 100;
+    provider.costInfo = normalizeCost({ amount: annual, billing: 'annual' });
+    provider.currency = priced[0].currency;
+    provider.costDerived = true;
+  }
 
   for (const project of projects) {
     for (const s of project.services) {

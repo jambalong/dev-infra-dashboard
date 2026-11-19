@@ -1,5 +1,5 @@
 import { h, externalLink } from '../dom.js';
-import { badge, billingLabel, costBadge, emptyState, pageHeader, projectCard } from '../components.js';
+import { badge, emptyState, pageHeader, projectCard, serviceCost } from '../components.js';
 import { ENVIRONMENTS, ROLES, STATUSES, TYPES, labelOf } from '../schema.js';
 import { loadChecklist } from '../storage.js';
 import { renderTaskRow, tasksFor, toggleTask } from './maintenance.js';
@@ -118,7 +118,7 @@ export function renderProjectDetail(ctx, id) {
                 h('td', null, s.label ?? h('span', { class: 'muted' }, '—')),
                 h('td', null, s.state === 'planned' ? badge('Planned', 'blue') : badge('Active', 'green')),
                 h('td', null, s.providerRef?.plan ?? h('span', { class: 'muted' }, 'Unknown')),
-                h('td', null, s.providerRef ? [costBadge(s.providerRef), ' ', h('span', { class: 'muted' }, billingLabel(s.providerRef) === '—' ? '' : billingLabel(s.providerRef))] : '—'),
+                h('td', null, serviceCost(s)),
               ),
             ),
           ),

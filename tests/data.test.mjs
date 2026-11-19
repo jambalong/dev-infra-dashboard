@@ -36,6 +36,7 @@ test('providers on free plans are recorded as free; the domain registrar is a kn
     if (p.id === 'porkbun') {
       assert.equal(p.costInfo.state, 'paid');
       assert.equal(p.costInfo.annual, 36.56);
+      assert.equal(p.costDerived, true);
       assert.ok(Math.abs(p.costInfo.monthly - 36.56 / 12) < 1e-9);
     }
     else assert.ok(p.costInfo.state === 'free' && p.plan === 'Free', p.id);
@@ -99,4 +100,33 @@ test('validator checks project icons exist and stay under assets/icons', async (
 test('shipped projects with icons point at existing files', async () => {
   const d = await load();
   assert.deepEqual(d.projects.projects.filter((p) => p.icon).map((p) => p.id), ['personal-website', 'pangu-terminal', 'lunrfast', 'homebase']);
+});
+
+test('domain costs are attributed per project and not repeated on every project', async () => {
+  const d = await load();
+  const inv = buildInventory(d.projects, d.providers, d.maintenance);
+  const own = (id) => inv.projectById.get(id).services.find((s) => s.provider === 'porkbun').costInfo;
+  assert.equal(own('personal-website').annual, 12.87);
+  assert.equal(own('lunrfast').annual, 23.69);
+  assert.equal(own('pangu-terminal').state, 'unknown'); // shares ambalong.dev; not counted twice
+  assert.equal(inv.providerById.get('porkbun').costInfo.annual, 36.56);
+});
+
+test('a provider with its own plan cost is not overridden by service costs', () => {
+  const inv = buildInventory(
+    { projects: [{ id: 'a', services: [{ provider: 'p', cost: { amount: 5, billing: 'annual' } }] }] },
+    { providers: [{ id: 'p', cost: { amount: 0, billing: 'monthly' } }] },
+    {},
+  );
+  assert.equal(inv.providerById.get('p').costInfo.state, 'free');
+  assert.equal(inv.providerById.get('p').costDerived, undefined);
+});
+
+test('validator checks service costs', async () => {
+  const d = await load();
+  d.projects.projects[0].services[0].cost = { amount: 5, currency: 'USD' };
+  d.projects.projects[1].services[0].cost = { amount: -1 };
+  const errors = validate(d).join('\n');
+  assert.match(errors, /billing: required/);
+  assert.match(errors, /amount: must be a number/);
 });

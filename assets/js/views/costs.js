@@ -1,5 +1,5 @@
 import { h } from '../dom.js';
-import { billingLabel, costBadge, pageHeader, summaryCard } from '../components.js';
+import { billingLabel, costBadge, pageHeader, serviceCost, summaryCard } from '../components.js';
 import { formatMoney, projectCostCoverage, summarizeCosts } from '../costs.js';
 import { CATEGORIES, labelOf } from '../schema.js';
 
@@ -36,11 +36,15 @@ export function renderCosts({ inv }) {
   const projectRows = inv.projects.map((p) => {
     const cov = projectCostCoverage(p);
     const providers = [...new Map(p.services.filter((x) => x.providerRef).map((x) => [x.providerRef.id, x.providerRef])).values()];
+    const serviceFor = (prov) => {
+      const own = p.services.filter((x) => x.providerRef === prov);
+      return own.find((x) => x.costInfo.state !== 'unknown') ?? own[0];
+    };
     return h(
       'tr',
       null,
       h('td', null, h('a', { href: `#/projects/${encodeURIComponent(p.id)}` }, p.name)),
-      h('td', null, providers.length ? h('span', { class: 'chips' }, providers.map((x) => h('span', { class: 'chip' }, x.name, ' ', costBadge(x)))) : h('span', { class: 'muted' }, '—')),
+      h('td', null, providers.length ? h('span', { class: 'chips' }, providers.map((x) => h('span', { class: 'chip' }, x.name, ' ', serviceCost(serviceFor(x))))) : h('span', { class: 'muted' }, '—')),
       h('td', null, cov.providers === 0 ? '—' : `${cov.priced} / ${cov.providers}`),
       h('td', null, cov.unknown ? h('span', { class: 'unknown-text' }, `${cov.unknown} unknown`) : cov.providers ? 'All known' : '—'),
     );

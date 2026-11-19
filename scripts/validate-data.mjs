@@ -90,6 +90,14 @@ export function validate({ projects, providers, maintenance }) {
       oneOf(s.role, ROLES, `${w}.services[${i}].role`);
       if (s.state != null) oneOf(s.state, SERVICE_STATES, `${w}.services[${i}].state`);
       if (!providerIds.has(s.provider)) err(`${w}.services[${i}]: unknown provider "${s.provider}"`);
+      if (s.cost != null) {
+        const { amount, currency: cur, billing } = s.cost;
+        const sw = `${w}.services[${i}].cost`;
+        if (typeof amount !== 'number' || !(amount >= 0)) err(`${sw}.amount: must be a number >= 0`);
+        else if (amount > 0 && !(billing in BILLING)) err(`${sw}.billing: required (monthly|annual) when amount > 0`);
+        if (cur != null && !/^[A-Z]{3}$/.test(cur)) err(`${sw}.currency: must be a 3-letter code`);
+        else if (cur != null) currency = currency && cur !== currency ? (err(`${sw}.currency: "${cur}" differs from "${currency}"; use one currency`), currency) : cur;
+      }
     }
   }
 

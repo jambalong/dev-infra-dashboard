@@ -25,7 +25,12 @@
         {
           "role": "integration",
           "provider": "porkbun",
-          "label": "Domain: ambalong.dev"
+          "label": "Domain: ambalong.dev",
+          "cost": {
+            "amount": 12.87,
+            "currency": "USD",
+            "billing": "annual"
+          }
         }
       ],
       "notes": [
@@ -102,7 +107,12 @@
         {
           "role": "integration",
           "provider": "porkbun",
-          "label": "Domain: lunr.fast"
+          "label": "Domain: lunr.fast",
+          "cost": {
+            "amount": 23.69,
+            "currency": "USD",
+            "billing": "annual"
+          }
         }
       ],
       "notes": [

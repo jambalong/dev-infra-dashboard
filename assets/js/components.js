@@ -21,6 +21,15 @@ export function costBadge(provider) {
   return badge(`${formatMoney(c.amount, provider.currency)}/${per}`, 'blue');
 }
 
+/** Cost for one service: its own price, "Shared" when the provider cost is built from other services, else the provider's cost. */
+export function serviceCost(service) {
+  const provider = service.providerRef;
+  if (!provider) return h('span', { class: 'muted' }, '—');
+  if (service.costInfo.state !== 'unknown') return costBadge({ costInfo: service.costInfo, currency: service.currency });
+  if (provider.costDerived) return h('span', { class: 'muted small' }, 'Shared');
+  return costBadge(provider);
+}
+
 export const billingLabel = (provider) => (provider.costInfo.billing ? labelOf(BILLING, provider.costInfo.billing) : '—');
 
 export const monogram = (name) => h('span', { class: 'mono-tile', 'aria-hidden': 'true' }, (name ?? '?').trim().charAt(0).toUpperCase());
