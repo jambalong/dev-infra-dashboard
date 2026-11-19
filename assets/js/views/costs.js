@@ -1,6 +1,6 @@
 import { h } from '../dom.js';
 import { billingLabel, costBadge, pageHeader, summaryCard } from '../components.js';
-import { formatMoney, projectCostCoverage, summarizeCosts } from '../costs.js';
+import { formatMoney, summarizeCosts } from '../costs.js';
 import { CATEGORIES, labelOf } from '../schema.js';
 
 const th = (t, cls) => h('th', { scope: 'col', class: cls }, t);
@@ -33,16 +33,6 @@ export function renderCosts({ inv }) {
     ),
   );
 
-  const projectRows = inv.projects.map((p) => {
-    const cov = projectCostCoverage(p);
-    return h(
-      'tr',
-      null,
-      h('td', null, h('a', { href: `#/projects/${encodeURIComponent(p.id)}` }, p.name)),
-      h('td', { class: cov.unknown ? 'unknown-text' : '' }, cov.providers === 0 ? '—' : `${cov.priced} / ${cov.providers}`),
-    );
-  });
-
   return h(
     'div',
     null,
@@ -64,13 +54,6 @@ export function renderCosts({ inv }) {
       { class: 'card' },
       h('h2', null, 'By provider'),
       h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, th('Provider'), th('Plan'), th('Billing'), th('Cost'), th('Monthly', 'num'), th('Annual', 'num'), th('Projects'))), h('tbody', null, providerRows))),
-    ),
-    h(
-      'section',
-      { class: 'card' },
-      h('h2', null, 'By project'),
-      h('p', { class: 'muted small' }, 'Provider plans can be shared between projects, so costs are not split per project. This shows how many of each project’s providers have a known cost.'),
-      h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, th('Project'), th('Priced'))), h('tbody', null, projectRows))),
     ),
   );
 }

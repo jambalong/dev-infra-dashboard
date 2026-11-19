@@ -175,7 +175,7 @@ Display:
 - Paid services.
 - Unknown costs.
 - Cost breakdown by provider.
-- Cost breakdown by project.
+- Costs that belong to one project (such as a domain) on that project's page. There is no separate by-project table, because provider plans are shared between projects.
 
 Support monthly and annual billing frequencies.
 

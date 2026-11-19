@@ -94,7 +94,7 @@ The site is public. Before pushing data changes, confirm that `data/` has no key
 
 ## Design decisions
 
-- **Costs live on providers, not projects.** One plan (for example Neon) can be shared by several projects, so splitting it would be invented data. The Costs page shows per project how many of its providers have a known cost.
+- **Costs live on providers, not projects.** One plan (for example Neon) can be shared by several projects, so splitting it would be invented data. The Costs page therefore lists costs by provider only. A cost that belongs to one project, such as a domain, is set on that project's service and shown on its page.
 - **Hash routing** (`#/projects/lunrfast`) so deep links work on GitHub Pages without server rewrites.
 - **Theme** is stored in `localStorage` (`did.theme`). Absence of a value means "system".
 - **Visual design** (`assets/css/styles.css`): neutral near-black and near-white surfaces, hairline borders and a single indigo accent (`#8b95ff` dark, `#4f46e5` light). Status colours are green, amber and red. Monospace type is used for numbers, costs and counts. Every colour is a CSS variable at the top of the stylesheet, and the System/Light/Dark switch sets `data-theme` on `<html>`.
