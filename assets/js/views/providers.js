@@ -55,7 +55,8 @@ function providerCard(provider) {
                   'li',
                   null,
                   h('a', { href: `#/projects/${encodeURIComponent(project.id)}` }, project.name),
-                  h('span', { class: 'muted' }, ` · ${labelOf(ROLES, service.role)}${service.label ? ` (${service.label})` : ''}${service.state === 'planned' ? ' · planned' : ''}`),
+                  h('span', { class: 'muted' }, ` · ${labelOf(ROLES, service.role)}${service.state === 'planned' ? ' · planned' : ''}`),
+                  service.label ? h('div', { class: 'muted small' }, service.label) : null,
                 ),
               ),
             )
