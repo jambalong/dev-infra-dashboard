@@ -1,6 +1,7 @@
 import { h } from '../dom.js';
-import { emptyState, pageHeader, projectCard, summaryCard } from '../components.js';
-import { summarizeCosts } from '../costs.js';
+import { emptyState, formatDate, pageHeader, projectCard, summaryCard } from '../components.js';
+import { formatMoney, summarizeCosts } from '../costs.js';
+import { nextRenewal } from '../data.js';
 import { CATEGORIES, labelOf } from '../schema.js';
 import { knownTotalLabel } from './costs.js';
 
@@ -10,6 +11,13 @@ export function renderOverview(ctx) {
   const costs = summarizeCosts(inv.providers);
   const currency = inv.providers.find((p) => p.costInfo.state !== 'unknown')?.currency ?? 'USD';
 
+  function renewalCard() {
+    const next = nextRenewal(inv);
+    if (!next) return summaryCard('Next renewal', 'None set', 'Add a renews date to a service', 'stat-unknown');
+    const when = next.days === 0 ? 'today' : `in ${next.days} day${next.days === 1 ? '' : 's'}`;
+    return summaryCard('Next renewal', formatDate(next.date), `${next.service.label ?? next.project.name} · ${when}`);
+  }
+
   const stats = h(
     'div',
     { class: 'stats' },
@@ -17,7 +25,8 @@ export function renderOverview(ctx) {
     summaryCard('Active', String(count('active')), null),
     summaryCard('Planned', String(count('planned')), null),
     summaryCard('Providers', String(inv.providers.length), null),
-    summaryCard('Known monthly cost', knownTotalLabel(costs, 'monthly', currency), costs.unknown ? `${costs.unknown} of ${costs.total} unknown` : 'All costs known', costs.known === 0 ? 'stat-unknown' : ''),
+    summaryCard('Known annual cost', knownTotalLabel(costs, 'annual', currency), costs.unknown ? `${costs.unknown} of ${costs.total} unknown` : `≈ ${formatMoney(costs.monthly, currency)} per month`, costs.known === 0 ? 'stat-unknown' : ''),
+    renewalCard(),
   );
 
   // Provider distribution: number of distinct projects using each provider.

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { buildInventory } from '../assets/js/data.js';
+import { buildInventory, nextRenewal } from '../assets/js/data.js';
 import { validate } from '../scripts/validate-data.mjs';
 
 const read = async (n) => JSON.parse(await readFile(new URL(`../data/${n}.json`, import.meta.url), 'utf8'));
@@ -127,4 +127,23 @@ test('validator checks service costs', async () => {
   const errors = validate(d).join('\n');
   assert.match(errors, /billing: required/);
   assert.match(errors, /amount: must be a number/);
+});
+
+test('next renewal picks the soonest upcoming date and skips past ones', async () => {
+  const d = await load();
+  const inv = buildInventory(d.projects, d.providers);
+  const first = nextRenewal(inv, new Date('2026-11-19T12:00:00Z'));
+  assert.equal(first.date, '2027-05-03');
+  assert.equal(first.project.id, 'personal-website');
+  assert.equal(first.days, 165);
+  const second = nextRenewal(inv, new Date('2027-06-01T00:00:00Z'));
+  assert.equal(second.date, '2027-10-13');
+  assert.equal(nextRenewal(inv, new Date('2027-05-03T23:00:00Z')).days, 0);
+  assert.equal(nextRenewal(inv, new Date('2028-01-01T00:00:00Z')), null);
+});
+
+test('validator rejects bad renewal dates', async () => {
+  const d = await load();
+  d.projects.projects[0].services[0].renews = '2027-13-45';
+  assert.match(validate(d).join('\n'), /renews: must be a valid/);
 });

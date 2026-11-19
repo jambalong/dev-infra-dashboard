@@ -68,6 +68,7 @@ export function buildInventory(projectsDoc, providersDoc) {
             label: str(s.label),
             state: str(s.state) ?? 'active',
             costInfo: normalizeCost(s.cost),
+            renews: /^\d{4}-\d{2}-\d{2}$/.test(s.renews ?? '') ? s.renews : null,
             currency: s.cost?.currency ?? 'USD',
           };
         }),
@@ -108,4 +109,22 @@ export function buildInventory(projectsDoc, providersDoc) {
 /** Services of a project with the given role. */
 export function servicesByRole(project, role) {
   return project.services.filter((s) => s.role === role);
+}
+
+/**
+ * The soonest renewal date that is today or later, across all services.
+ * Dates are YYYY-MM-DD and compared as UTC calendar days. Returns null when none is set.
+ */
+export function nextRenewal(inv, today = new Date()) {
+  const start = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+  let best = null;
+  for (const project of inv.projects) {
+    for (const service of project.services) {
+      if (!service.renews) continue;
+      const time = Date.parse(`${service.renews}T00:00:00Z`);
+      if (Number.isNaN(time) || time < start) continue;
+      if (!best || time < best.time) best = { project, service, date: service.renews, time };
+    }
+  }
+  return best && { project: best.project, service: best.service, date: best.date, days: Math.round((best.time - start) / 86400000) };
 }

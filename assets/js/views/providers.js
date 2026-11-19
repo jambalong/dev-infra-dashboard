@@ -1,5 +1,5 @@
 import { h, externalLink } from '../dom.js';
-import { billingLabel, costBadge, emptyState, monogram, pageHeader } from '../components.js';
+import { billingLabel, costBadge, emptyState, formatDate, monogram, pageHeader } from '../components.js';
 import { CATEGORIES, ROLES, labelOf } from '../schema.js';
 
 const filters = { q: '', category: '' };
@@ -56,7 +56,7 @@ function providerCard(provider) {
                   null,
                   h('a', { href: `#/projects/${encodeURIComponent(project.id)}` }, project.name),
                   h('span', { class: 'muted' }, ` · ${labelOf(ROLES, service.role)}${service.state === 'planned' ? ' · planned' : ''}`),
-                  service.label ? h('div', { class: 'muted small' }, service.label) : null,
+                  service.label || service.renews ? h('div', { class: 'muted small' }, [service.label, service.renews ? `renews ${formatDate(service.renews)}` : null].filter(Boolean).join(' · ')) : null,
                 ),
               ),
             )

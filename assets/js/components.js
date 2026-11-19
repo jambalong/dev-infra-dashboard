@@ -36,6 +36,12 @@ export function serviceCost(service) {
   return costBadge({ costInfo: info, currency });
 }
 
+/** 'YYYY-MM-DD' -> 'May 3, 2027' (calendar date, no timezone shift). */
+export function formatDate(iso) {
+  const time = Date.parse(`${iso}T00:00:00Z`);
+  return Number.isNaN(time) ? iso : new Date(time).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+}
+
 export const billingLabel = (provider) => (provider.costInfo.billing ? labelOf(BILLING, provider.costInfo.billing) : '—');
 
 export const monogram = (name) => h('span', { class: 'mono-tile', 'aria-hidden': 'true' }, (name ?? '?').trim().charAt(0).toUpperCase());

@@ -30,7 +30,8 @@
             "amount": 12.87,
             "currency": "USD",
             "billing": "annual"
-          }
+          },
+          "renews": "2027-05-03"
         }
       ],
       "notes": [
@@ -112,7 +113,8 @@
             "amount": 23.69,
             "currency": "USD",
             "billing": "annual"
-          }
+          },
+          "renews": "2027-10-13"
         }
       ],
       "notes": [

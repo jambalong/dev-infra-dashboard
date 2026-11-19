@@ -89,6 +89,7 @@ export function validate({ projects, providers }) {
       oneOf(s.role, ROLES, `${w}.services[${i}].role`);
       if (s.state != null) oneOf(s.state, SERVICE_STATES, `${w}.services[${i}].state`);
       if (!providerIds.has(s.provider)) err(`${w}.services[${i}]: unknown provider "${s.provider}"`);
+      if (s.renews != null && (!/^\d{4}-\d{2}-\d{2}$/.test(s.renews) || Number.isNaN(Date.parse(s.renews)))) err(`${w}.services[${i}].renews: must be a valid YYYY-MM-DD date`);
       if (s.cost != null) {
         const { amount, currency: cur, billing } = s.cost;
         const sw = `${w}.services[${i}].cost`;
