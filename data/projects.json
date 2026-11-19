@@ -55,7 +55,7 @@
     {
       "id": "lunrfast",
       "name": "LunrFast",
-      "description": "Mobile app for iOS and Android, with a landing page and waitlist.",
+      "description": "A calm intermittent fasting app for iOS and Android: a timer that is never paywalled, a simple food log, and small private circles for fasting together. Personal health data stays on the phone, encrypted.",
       "status": "active",
       "type": "mobile-application",
       "environment": "production",
@@ -82,7 +82,11 @@
           "label": "Waitlist"
         }
       ],
-      "notes": []
+      "notes": [
+        "Built with Expo, React Native and TypeScript, with encrypted on-device storage.",
+        "Supabase backs the private circles feature.",
+        "In development: fasting, food log and circles are built; device testing and release reviews are still open."
+      ]
     },
     {
       "id": "homebase",
