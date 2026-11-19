@@ -29,11 +29,15 @@ test('project/provider relationships resolve both ways', async () => {
   assert.equal(inv.projectById.get('homebase').status, 'planned');
 });
 
-test('providers on free plans are recorded as free; the domain registrar stays unknown', async () => {
+test('providers on free plans are recorded as free; the domain registrar is a known annual cost', async () => {
   const d = await load();
   const inv = buildInventory(d.projects, d.providers, d.maintenance);
   for (const p of inv.providers) {
-    if (p.id === 'porkbun') assert.equal(p.costInfo.state, 'unknown');
+    if (p.id === 'porkbun') {
+      assert.equal(p.costInfo.state, 'paid');
+      assert.equal(p.costInfo.annual, 36.56);
+      assert.ok(Math.abs(p.costInfo.monthly - 36.56 / 12) < 1e-9);
+    }
     else assert.ok(p.costInfo.state === 'free' && p.plan === 'Free', p.id);
   }
 });
