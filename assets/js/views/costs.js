@@ -1,5 +1,5 @@
 import { h } from '../dom.js';
-import { billingLabel, costBadge, pageHeader, serviceCost, summaryCard } from '../components.js';
+import { billingLabel, costBadge, pageHeader, summaryCard } from '../components.js';
 import { formatMoney, projectCostCoverage, summarizeCosts } from '../costs.js';
 import { CATEGORIES, labelOf } from '../schema.js';
 
@@ -9,24 +9,6 @@ const money = (provider, key) => {
   const v = provider.costInfo[key];
   return v == null ? h('span', { class: 'unknown-text' }, 'Unknown') : formatMoney(v, provider.currency);
 };
-
-const MAX_CHIPS = 4;
-
-/** Compact provider list: priced/unknown/shared ones first, free ones after, long lists end in "+N more". */
-function providerChips(providers, serviceFor) {
-  if (!providers.length) return h('span', { class: 'muted' }, '—');
-  const items = providers
-    .map((prov) => ({ prov, badge: serviceCost(serviceFor(prov), { hideFree: true }) }))
-    .sort((a, b) => Number(Boolean(b.badge)) - Number(Boolean(a.badge)));
-  const shown = items.slice(0, MAX_CHIPS);
-  const rest = items.slice(MAX_CHIPS);
-  return h(
-    'span',
-    { class: 'chips' },
-    shown.map(({ prov, badge }) => h('span', { class: 'chip' }, prov.name, badge)),
-    rest.length ? h('span', { class: 'chip chip-more', title: rest.map((r) => r.prov.name).join(', ') }, `+${rest.length} more`) : null,
-  );
-}
 
 export function knownTotalLabel(summary, key, currency = 'USD') {
   return summary.known === 0 ? 'Unknown' : formatMoney(summary[key], currency);
@@ -53,16 +35,10 @@ export function renderCosts({ inv }) {
 
   const projectRows = inv.projects.map((p) => {
     const cov = projectCostCoverage(p);
-    const providers = [...new Map(p.services.filter((x) => x.providerRef).map((x) => [x.providerRef.id, x.providerRef])).values()];
-    const serviceFor = (prov) => {
-      const own = p.services.filter((x) => x.providerRef === prov);
-      return own.find((x) => x.costInfo.state !== 'unknown') ?? own[0];
-    };
     return h(
       'tr',
       null,
       h('td', null, h('a', { href: `#/projects/${encodeURIComponent(p.id)}` }, p.name)),
-      h('td', null, providerChips(providers, serviceFor)),
       h('td', null, cov.providers === 0 ? '—' : `${cov.priced} / ${cov.providers}`),
       h('td', null, cov.unknown ? h('span', { class: 'unknown-text' }, `${cov.unknown} unknown`) : cov.providers ? 'All known' : '—'),
     );
@@ -94,8 +70,8 @@ export function renderCosts({ inv }) {
       'section',
       { class: 'card' },
       h('h2', null, 'By project'),
-      h('p', { class: 'muted small' }, 'Provider plans can be shared between projects, so costs are not split per project. Providers without a badge are on a free plan.'),
-      h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, th('Project'), th('Providers'), th('Priced'), th('Status'))), h('tbody', null, projectRows))),
+      h('p', { class: 'muted small' }, 'Provider plans can be shared between projects, so costs are not split per project. This shows how many of each project’s providers have a known cost.'),
+      h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, th('Project'), th('Priced'), th('Status'))), h('tbody', null, projectRows))),
     ),
   );
 }

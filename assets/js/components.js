@@ -21,8 +21,8 @@ export function costBadge(provider) {
   return badge(`${formatMoney(c.amount, provider.currency)}/${per}`, 'blue');
 }
 
-/** Cost for one service (hideFree omits the Free badge for compact lists): its own price, "Shared" when the provider cost is built from other services, else the provider's cost. */
-export function serviceCost(service, { hideFree = false } = {}) {
+/** Cost for one service: its own price, "Shared" when the provider cost is built from other services, else the provider's cost. */
+export function serviceCost(service) {
   const provider = service.providerRef;
   if (!provider) return h('span', { class: 'muted' }, '—');
   let info = provider.costInfo;
@@ -33,7 +33,6 @@ export function serviceCost(service, { hideFree = false } = {}) {
   } else if (provider.costDerived) {
     return h('span', { class: 'muted small' }, 'Shared');
   }
-  if (hideFree && info.state === 'free') return null;
   return costBadge({ costInfo: info, currency });
 }
 
