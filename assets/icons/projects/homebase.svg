@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Homebase placeholder icon">
+  <rect width="64" height="64" rx="14" fill="#1a1a24"/>
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#8b95ff" stroke-opacity="0.35" stroke-width="2"/>
+  <path d="M32 15 14 30.5h5V48a2 2 0 0 0 2 2h22a2 2 0 0 0 2-2V30.5h5z" fill="none" stroke="#8b95ff" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M27 50V38.5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2V50" fill="none" stroke="#8b95ff" stroke-width="3.5" stroke-linejoin="round"/>
+</svg>

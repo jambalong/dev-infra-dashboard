@@ -94,6 +94,7 @@
     {
       "id": "homebase",
       "name": "Homebase",
+      "icon": "assets/icons/projects/homebase.svg",
       "description": "Planned project.",
       "status": "planned",
       "type": null,

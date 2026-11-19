@@ -91,5 +91,5 @@ test('validator checks project icons exist and stay under assets/icons', async (
 
 test('shipped projects with icons point at existing files', async () => {
   const d = await load();
-  assert.deepEqual(d.projects.projects.filter((p) => p.icon).map((p) => p.id), ['personal-website', 'pangu-terminal', 'lunrfast']);
+  assert.deepEqual(d.projects.projects.filter((p) => p.icon).map((p) => p.id), ['personal-website', 'pangu-terminal', 'lunrfast', 'homebase']);
 });
