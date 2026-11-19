@@ -29,13 +29,10 @@ test('project/provider relationships resolve both ways', async () => {
   assert.equal(inv.projectById.get('homebase').status, 'planned');
 });
 
-test('providers confirmed as free plans are recorded as free; newer ones stay unknown', async () => {
+test('all providers are recorded as free (owner-confirmed)', async () => {
   const d = await load();
   const inv = buildInventory(d.projects, d.providers, d.maintenance);
-  for (const p of inv.providers) {
-    if (p.id === 'resend') assert.equal(p.costInfo.state, 'unknown');
-    else assert.ok(p.costInfo.state === 'free' && p.plan === 'Free', p.id);
-  }
+  for (const p of inv.providers) assert.ok(p.costInfo.state === 'free' && p.plan === 'Free', p.id);
 });
 
 test('missing optional fields and dangling references do not throw', () => {

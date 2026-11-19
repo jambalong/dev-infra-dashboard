@@ -135,11 +135,11 @@
       "name": "Resend",
       "category": "email-delivery",
       "website": "https://resend.com",
-      "plan": null,
+      "plan": "Free",
       "cost": {
-        "amount": null,
+        "amount": 0,
         "currency": "USD",
-        "billing": null
+        "billing": "monthly"
       },
       "freeTier": null,
       "notes": [
