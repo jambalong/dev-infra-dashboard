@@ -95,9 +95,9 @@
       "id": "homebase",
       "name": "Homebase",
       "icon": "assets/icons/projects/homebase.svg",
-      "description": "Planned project.",
+      "description": "Private household budgeting web app: income, budget allocations, recurring bills and savings goals in one dashboard.",
       "status": "planned",
-      "type": null,
+      "type": "web-application",
       "environment": null,
       "repository": null,
       "services": [
@@ -112,7 +112,10 @@
           "state": "planned"
         }
       ],
-      "notes": []
+      "notes": [
+        "Not started yet. Planned as a Ruby on Rails 8 monolith with Hotwire and Tailwind CSS.",
+        "Requires sign-in; not publicly accessible."
+      ]
     }
   ]
 }
