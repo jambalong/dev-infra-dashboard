@@ -34,15 +34,6 @@ export function summarizeCosts(providers) {
   return out;
 }
 
-/** Price coverage for one project: how many of its distinct providers have a known cost. */
-export function projectCostCoverage(project) {
-  const seen = new Map();
-  for (const s of project.services) if (s.providerRef) seen.set(s.providerRef.id, s.providerRef);
-  const providers = [...seen.values()];
-  const priced = providers.filter((p) => p.costInfo.state !== 'unknown').length;
-  return { providers: providers.length, priced, unknown: providers.length - priced };
-}
-
 export function formatMoney(value, currency = 'USD') {
   if (value == null) return '—';
   try {

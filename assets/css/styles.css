@@ -251,7 +251,6 @@ section.card + section.card,
 }
 .proj-icon { flex: none; width: 28px; height: 28px; border-radius: 8px; object-fit: cover; border: 1px solid var(--border); background: var(--surface-3); }
 .desc { font-size: 13px; color: color-mix(in srgb, var(--text) 85%, var(--muted)); }
-.card-foot { display: flex; justify-content: space-between; font-size: 12px; border-top: 1px solid var(--border); padding-top: 10px; margin-top: auto; }
 
 .kvs, .meta { margin: 0; display: grid; gap: 8px; }
 .meta { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }

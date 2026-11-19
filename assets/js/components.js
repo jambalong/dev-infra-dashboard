@@ -2,7 +2,7 @@
 
 import { h } from './dom.js';
 import { BILLING, ROLES, STATUSES, labelOf } from './schema.js';
-import { formatMoney, projectCostCoverage } from './costs.js';
+import { formatMoney } from './costs.js';
 import { servicesByRole } from './data.js';
 
 export const badge = (text, tone = 'neutral') => h('span', { class: `badge badge-${tone}` }, text);
@@ -89,8 +89,6 @@ function serviceRow(project, role) {
 }
 
 export function projectCard(project) {
-  const cov = projectCostCoverage(project);
-  const coverage = cov.providers === 0 ? 'No services' : `${cov.priced} of ${cov.providers} services priced`;
   return h(
     'article',
     { class: 'card project-card' },
@@ -102,7 +100,6 @@ export function projectCard(project) {
     ),
     h('p', { class: project.description ? 'desc' : 'desc muted' }, project.description ?? 'No description.'),
     h('dl', { class: 'kvs' }, serviceRow(project, 'hosting'), serviceRow(project, 'database'), serviceRow(project, 'integration')),
-    h('div', { class: 'card-foot muted' }, h('span', null, 'Cost'), h('span', { class: cov.unknown ? 'unknown-text' : '' }, coverage)),
   );
 }
 
