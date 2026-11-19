@@ -20,7 +20,7 @@ All content comes from three files in `data/`. No code changes are needed. After
 ```
 
 - `id`: stable, lowercase-kebab-case. Other files refer to it, so do not rename it casually.
-- `category`: `application-hosting`, `database-hosting`, `static-hosting`, `mobile-development`, `email-newsletters`, `source-control`, `monitoring` or `domain-dns`.
+- `category`: `application-hosting`, `database-hosting`, `static-hosting`, `mobile-development`, `email-newsletters`, `email-delivery`, `source-control`, `monitoring` or `domain-dns`.
 - `plan`, `freeTier`: `null` when unverified.
 - **Cost semantics:**
   - `"amount": null` means **unknown**. This is the default, and it is never counted as zero.

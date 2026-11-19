@@ -8,9 +8,15 @@
       "category": "static-hosting",
       "website": "https://www.netlify.com",
       "plan": "Free",
-      "cost": { "amount": 0, "currency": "USD", "billing": "monthly" },
+      "cost": {
+        "amount": 0,
+        "currency": "USD",
+        "billing": "monthly"
+      },
       "freeTier": null,
-      "notes": ["Static website hosting."]
+      "notes": [
+        "Static website hosting."
+      ]
     },
     {
       "id": "kit",
@@ -18,9 +24,15 @@
       "category": "email-newsletters",
       "website": "https://kit.com",
       "plan": "Free",
-      "cost": { "amount": 0, "currency": "USD", "billing": "monthly" },
+      "cost": {
+        "amount": 0,
+        "currency": "USD",
+        "billing": "monthly"
+      },
       "freeTier": null,
-      "notes": ["Newsletter management."]
+      "notes": [
+        "Newsletter management."
+      ]
     },
     {
       "id": "render",
@@ -28,9 +40,15 @@
       "category": "application-hosting",
       "website": "https://render.com",
       "plan": "Free",
-      "cost": { "amount": 0, "currency": "USD", "billing": "monthly" },
+      "cost": {
+        "amount": 0,
+        "currency": "USD",
+        "billing": "monthly"
+      },
       "freeTier": null,
-      "notes": ["Application hosting."]
+      "notes": [
+        "Application hosting."
+      ]
     },
     {
       "id": "neon",
@@ -38,9 +56,15 @@
       "category": "database-hosting",
       "website": "https://neon.com",
       "plan": "Free",
-      "cost": { "amount": 0, "currency": "USD", "billing": "monthly" },
+      "cost": {
+        "amount": 0,
+        "currency": "USD",
+        "billing": "monthly"
+      },
       "freeTier": null,
-      "notes": ["PostgreSQL hosting."]
+      "notes": [
+        "PostgreSQL hosting."
+      ]
     },
     {
       "id": "expo",
@@ -48,9 +72,15 @@
       "category": "mobile-development",
       "website": "https://expo.dev",
       "plan": "Free",
-      "cost": { "amount": 0, "currency": "USD", "billing": "monthly" },
+      "cost": {
+        "amount": 0,
+        "currency": "USD",
+        "billing": "monthly"
+      },
       "freeTier": null,
-      "notes": ["Mobile application development and distribution."]
+      "notes": [
+        "Mobile application development and distribution."
+      ]
     },
     {
       "id": "supabase",
@@ -58,9 +88,15 @@
       "category": "database-hosting",
       "website": "https://supabase.com",
       "plan": "Free",
-      "cost": { "amount": 0, "currency": "USD", "billing": "monthly" },
+      "cost": {
+        "amount": 0,
+        "currency": "USD",
+        "billing": "monthly"
+      },
       "freeTier": null,
-      "notes": ["PostgreSQL and backend services."]
+      "notes": [
+        "PostgreSQL and backend services."
+      ]
     },
     {
       "id": "github-pages",
@@ -68,9 +104,15 @@
       "category": "static-hosting",
       "website": "https://pages.github.com",
       "plan": "Free",
-      "cost": { "amount": 0, "currency": "USD", "billing": "monthly" },
+      "cost": {
+        "amount": 0,
+        "currency": "USD",
+        "billing": "monthly"
+      },
       "freeTier": null,
-      "notes": ["Static website hosting. Also hosts this dashboard."]
+      "notes": [
+        "Static website hosting. Also hosts this dashboard."
+      ]
     },
     {
       "id": "buttondown",
@@ -78,9 +120,31 @@
       "category": "email-newsletters",
       "website": "https://buttondown.com",
       "plan": "Free",
-      "cost": { "amount": 0, "currency": "USD", "billing": "monthly" },
+      "cost": {
+        "amount": 0,
+        "currency": "USD",
+        "billing": "monthly"
+      },
       "freeTier": null,
-      "notes": ["Newsletter and waitlist management."]
+      "notes": [
+        "Newsletter and waitlist management."
+      ]
+    },
+    {
+      "id": "resend",
+      "name": "Resend",
+      "category": "email-delivery",
+      "website": "https://resend.com",
+      "plan": null,
+      "cost": {
+        "amount": null,
+        "currency": "USD",
+        "billing": null
+      },
+      "freeTier": null,
+      "notes": [
+        "Transactional email."
+      ]
     }
   ]
 }

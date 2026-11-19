@@ -17,6 +17,7 @@ export const CATEGORIES = {
   'static-hosting': 'Static hosting',
   'mobile-development': 'Mobile development',
   'email-newsletters': 'Email & newsletters',
+  'email-delivery': 'Email delivery',
   'source-control': 'Source control',
   monitoring: 'Monitoring',
   'domain-dns': 'Domain & DNS',

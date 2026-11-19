@@ -83,6 +83,11 @@
           "role": "integration",
           "provider": "buttondown",
           "label": "Waitlist"
+        },
+        {
+          "role": "integration",
+          "provider": "resend",
+          "label": "Email codes"
         }
       ],
       "notes": [
