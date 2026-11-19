@@ -9,7 +9,7 @@
       "status": "active",
       "type": "website",
       "environment": "production",
-      "repository": "https://github.com/jambalong/portfolio",
+      "repository": null,
       "website": "https://ambalong.dev",
       "services": [
         {
@@ -34,7 +34,7 @@
       "status": "active",
       "type": "web-application",
       "environment": "production",
-      "repository": "https://github.com/jambalong/pangu-terminal",
+      "repository": null,
       "website": "https://panguterminal.ambalong.dev",
       "services": [
         {

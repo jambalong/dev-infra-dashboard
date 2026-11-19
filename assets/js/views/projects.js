@@ -95,8 +95,8 @@ export function renderProjectDetail(ctx, id) {
     ['Type', labelOf(TYPES, project.type)],
     ['Environment', labelOf(ENVIRONMENTS, project.environment)],
     ['Website', project.website ? externalLink(project.website) : h('span', { class: 'muted' }, 'Not set')],
-    ['Repository', repo],
-  ];
+    project.repository ? ['Repository', repo] : null,
+  ].filter(Boolean);
 
   const servicesTable = project.services.length
     ? h(
