@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-18",
+  "tasks": [
+    { "id": "review-billing", "title": "Review provider billing", "cadence": "Monthly", "providers": [], "projects": [], "due": null, "notes": "Check every provider account for unexpected charges." },
+    { "id": "verify-db-backups", "title": "Verify database backups", "cadence": "Quarterly", "providers": ["neon", "supabase"], "projects": [], "due": null, "notes": null },
+    { "id": "check-domain-renewals", "title": "Check domain renewals", "cadence": "Quarterly", "providers": [], "projects": [], "due": null, "notes": null },
+    { "id": "review-free-tier-usage", "title": "Review free-tier usage", "cadence": "Quarterly", "providers": ["render", "neon", "supabase", "netlify"], "projects": [], "due": null, "notes": null },
+    { "id": "verify-mfa", "title": "Verify account MFA", "cadence": "Quarterly", "providers": [], "projects": [], "due": null, "notes": "Confirm multi-factor authentication is on for every provider and for GitHub." },
+    { "id": "remove-unused-services", "title": "Remove unused services", "cadence": "Yearly", "providers": [], "projects": [], "due": null, "notes": null },
+    { "id": "review-deploy-workflows", "title": "Review deployment workflows", "cadence": "Yearly", "providers": ["github-pages"], "projects": [], "due": null, "notes": null },
+    { "id": "test-recovery", "title": "Test application recovery procedure", "cadence": "Yearly", "providers": [], "projects": ["pangu-terminal"], "due": null, "notes": null }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-11-18",
+  "providers": [
+    {
+      "id": "netlify",
+      "name": "Netlify",
+      "category": "static-hosting",
+      "website": "https://www.netlify.com",
+      "plan": null,
+      "cost": { "amount": null, "currency": "USD", "billing": null },
+      "freeTier": null,
+      "notes": ["Static website hosting."]
+    },
+    {
+      "id": "kit",
+      "name": "Kit",
+      "category": "email-newsletters",
+      "website": "https://kit.com",
+      "plan": null,
+      "cost": { "amount": null, "currency": "USD", "billing": null },
+      "freeTier": null,
+      "notes": ["Newsletter management."]
+    },
+    {
+      "id": "render",
+      "name": "Render",
+      "category": "application-hosting",
+      "website": "https://render.com",
+      "plan": null,
+      "cost": { "amount": null, "currency": "USD", "billing": null },
+      "freeTier": null,
+      "notes": ["Application hosting."]
+    },
+    {
+      "id": "neon",
+      "name": "Neon",
+      "category": "database-hosting",
+      "website": "https://neon.com",
+      "plan": null,
+      "cost": { "amount": null, "currency": "USD", "billing": null },
+      "freeTier": null,
+      "notes": ["PostgreSQL hosting."]
+    },
+    {
+      "id": "expo",
+      "name": "Expo",
+      "category": "mobile-development",
+      "website": "https://expo.dev",
+      "plan": null,
+      "cost": { "amount": null, "currency": "USD", "billing": null },
+      "freeTier": null,
+      "notes": ["Mobile application development and distribution."]
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "category": "database-hosting",
+      "website": "https://supabase.com",
+      "plan": null,
+      "cost": { "amount": null, "currency": "USD", "billing": null },
+      "freeTier": null,
+      "notes": ["PostgreSQL and backend services."]
+    },
+    {
+      "id": "github-pages",
+      "name": "GitHub Pages",
+      "category": "static-hosting",
+      "website": "https://pages.github.com",
+      "plan": null,
+      "cost": { "amount": null, "currency": "USD", "billing": null },
+      "freeTier": null,
+      "notes": ["Static website hosting. Also hosts this dashboard."]
+    },
+    {
+      "id": "buttondown",
+      "name": "Buttondown",
+      "category": "email-newsletters",
+      "website": "https://buttondown.com",
+      "plan": null,
+      "cost": { "amount": null, "currency": "USD", "billing": null },
+      "freeTier": null,
+      "notes": ["Newsletter and waitlist management."]
+    }
+  ]
+}
