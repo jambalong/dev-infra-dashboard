@@ -163,8 +163,11 @@ nav a.active .count { background: var(--surface); }
 .section-head { display: flex; justify-content: space-between; align-items: baseline; }
 .section-head h2 { margin-bottom: 10px; }
 .back { display: inline-block; margin-bottom: 10px; font-size: 13px; }
-.card + .card { margin-top: 16px; }
-.stack > .card + .card { margin-top: 0; }
+section.card + section.card,
+.stats + .card,
+.notice + .card { margin-top: 16px; }
+.stats + .notice { margin-top: 12px; }
+.stack > section.card + section.card { margin-top: 0; }
 
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
 .stat { padding: 12px 14px; }
@@ -175,7 +178,7 @@ nav a.active .count { background: var(--surface); }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px; }
 .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; align-items: start; }
-.two-col > .card + .card { margin-top: 0; }
+.two-col > section.card + section.card { margin-top: 0; }
 @media (max-width: 960px) { .two-col { grid-template-columns: 1fr; } }
 
 .project-card, .provider-card { display: flex; flex-direction: column; gap: 10px; }
