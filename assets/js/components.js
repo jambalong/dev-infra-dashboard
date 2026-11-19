@@ -25,6 +25,10 @@ export const billingLabel = (provider) => (provider.costInfo.billing ? labelOf(B
 
 export const monogram = (name) => h('span', { class: 'mono-tile', 'aria-hidden': 'true' }, (name ?? '?').trim().charAt(0).toUpperCase());
 
+/** Project icon (relative path, so it works under the Pages subpath); falls back to the initial-letter tile. */
+export const projectIcon = (project) =>
+  project.icon ? h('img', { class: 'proj-icon', src: project.icon, alt: '', width: 28, height: 28, loading: 'lazy' }) : monogram(project.name);
+
 export function summaryCard(label, value, sub, extraClass = '') {
   return h(
     'div',
@@ -78,7 +82,7 @@ export function projectCard(project) {
     h(
       'div',
       { class: 'card-head' },
-      h('div', { class: 'card-title' }, monogram(project.name), h('h3', null, h('a', { href: `#/projects/${encodeURIComponent(project.id)}` }, project.name))),
+      h('div', { class: 'card-title' }, projectIcon(project), h('h3', null, h('a', { href: `#/projects/${encodeURIComponent(project.id)}` }, project.name))),
       statusBadge(project.status),
     ),
     h('p', { class: project.description ? 'desc' : 'desc muted' }, project.description ?? 'No description.'),

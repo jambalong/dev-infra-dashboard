@@ -79,3 +79,17 @@ test('validator blocks sensitive-looking content', async () => {
     assert.ok(validate(d).some((e) => /do not publish/.test(e)), bad);
   }
 });
+
+test('validator checks project icons exist and stay under assets/icons', async () => {
+  const d = await load();
+  d.projects.projects[0].icon = 'assets/icons/projects/missing.svg';
+  d.projects.projects[1].icon = '../secrets.png';
+  const errors = validate(d).join('\n');
+  assert.match(errors, /file not found/);
+  assert.match(errors, /relative path under assets\/icons/);
+});
+
+test('shipped projects with icons point at existing files', async () => {
+  const d = await load();
+  assert.deepEqual(d.projects.projects.filter((p) => p.icon).map((p) => p.id), ['personal-website', 'pangu-terminal', 'lunrfast']);
+});

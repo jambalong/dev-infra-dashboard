@@ -50,6 +50,7 @@ export function buildInventory(projectsDoc, providersDoc, maintenanceDoc) {
       id: p.id,
       name: str(p.name) ?? p.id,
       description: str(p.description),
+      icon: str(p.icon),
       status: str(p.status),
       type: str(p.type),
       environment: str(p.environment),

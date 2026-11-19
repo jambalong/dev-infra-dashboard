@@ -53,6 +53,7 @@ All content comes from three files in `data/`. No code changes are needed. After
 - `type`: `website`, `web-application`, `mobile-application`, `api`, `tool`, or `null`.
 - `environment`: `production`, `staging`, `development`, or `null`.
 - `services[].role`: `hosting`, `database` or `integration`. `provider` must match a provider `id`. `state` is `active` (default) or `planned`. `label` is optional free text.
+- `icon`: optional path to an image under `assets/icons/projects/` (svg, png, ico or webp), shown on project cards. Projects without one get an initial-letter tile. Save a copy of the favicon in the repo rather than hotlinking it, and keep to public icons.
 - `repository`, `website`: public `https://` URLs or `null`/omitted. Use the live site and the public repo only.
 
 ### Maintenance: `data/maintenance.json`

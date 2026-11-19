@@ -5,6 +5,7 @@
     {
       "id": "personal-website",
       "name": "Personal Website",
+      "icon": "assets/icons/projects/personal-website.svg",
       "description": "Personal site and blog with a few projects and an email signup. Built with Astro and Tailwind CSS, with one React island for the navigation.",
       "status": "active",
       "type": "website",
@@ -30,6 +31,7 @@
     {
       "id": "pangu-terminal",
       "name": "Pangu Terminal",
+      "icon": "assets/icons/projects/pangu-terminal.png",
       "description": "Progression planner and farming optimizer for Wuthering Waves. Tracks the materials you need against your inventory, shows what you can craft instead of farm, and prioritizes what is left to farm.",
       "status": "active",
       "type": "web-application",
@@ -55,6 +57,7 @@
     {
       "id": "lunrfast",
       "name": "LunrFast",
+      "icon": "assets/icons/projects/lunrfast.svg",
       "description": "A calm intermittent fasting app for iOS and Android: a timer that is never paywalled, a simple food log, and small private circles for fasting together. Personal health data stays on the phone, encrypted.",
       "status": "active",
       "type": "mobile-application",
