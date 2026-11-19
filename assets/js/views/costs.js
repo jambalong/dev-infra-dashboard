@@ -39,8 +39,7 @@ export function renderCosts({ inv }) {
       'tr',
       null,
       h('td', null, h('a', { href: `#/projects/${encodeURIComponent(p.id)}` }, p.name)),
-      h('td', null, cov.providers === 0 ? '—' : `${cov.priced} / ${cov.providers}`),
-      h('td', null, cov.unknown ? h('span', { class: 'unknown-text' }, `${cov.unknown} unknown`) : cov.providers ? 'All known' : '—'),
+      h('td', { class: cov.unknown ? 'unknown-text' : '' }, cov.providers === 0 ? '—' : `${cov.priced} / ${cov.providers}`),
     );
   });
 
@@ -71,7 +70,7 @@ export function renderCosts({ inv }) {
       { class: 'card' },
       h('h2', null, 'By project'),
       h('p', { class: 'muted small' }, 'Provider plans can be shared between projects, so costs are not split per project. This shows how many of each project’s providers have a known cost.'),
-      h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, th('Project'), th('Priced'), th('Status'))), h('tbody', null, projectRows))),
+      h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, th('Project'), th('Priced'))), h('tbody', null, projectRows))),
     ),
   );
 }
