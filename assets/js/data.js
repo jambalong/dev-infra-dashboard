@@ -1,4 +1,4 @@
-// Loads the JSON inventory and resolves references between projects, providers and tasks.
+// Loads the JSON inventory and resolves references between projects and providers.
 // buildInventory() is pure so it can be tested in Node; loadInventory() uses fetch.
 
 import { normalizeCost } from './costs.js';
@@ -13,18 +13,17 @@ async function fetchJson(name) {
 }
 
 export async function loadInventory() {
-  const [projects, providers, maintenance] = await Promise.all([
+  const [projects, providers] = await Promise.all([
     fetchJson('projects.json'),
     fetchJson('providers.json'),
-    fetchJson('maintenance.json'),
   ]);
-  return buildInventory(projects, providers, maintenance);
+  return buildInventory(projects, providers);
 }
 
 const arr = (v) => (Array.isArray(v) ? v : []);
 const str = (v) => (typeof v === 'string' && v.trim() ? v.trim() : null);
 
-export function buildInventory(projectsDoc, providersDoc, maintenanceDoc) {
+export function buildInventory(projectsDoc, providersDoc) {
   const warnings = [];
 
   const providers = arr(providersDoc?.providers)
@@ -94,33 +93,11 @@ export function buildInventory(projectsDoc, providersDoc, maintenanceDoc) {
     }
   }
 
-  const tasks = arr(maintenanceDoc?.tasks)
-    .filter((t) => t && str(t.id) && str(t.title))
-    .map((t) => {
-      const refs = (ids, map, kind) =>
-        arr(ids)
-          .map((id) => {
-            if (!map.has(id)) warnings.push(`Task "${t.id}" references unknown ${kind} "${id}".`);
-            return map.get(id) ?? null;
-          })
-          .filter(Boolean);
-      return {
-        id: t.id,
-        title: t.title,
-        cadence: str(t.cadence),
-        due: str(t.due),
-        notes: str(t.notes),
-        providers: refs(t.providers, providerById, 'provider'),
-        projects: refs(t.projects, projectById, 'project'),
-      };
-    });
-
-  const dates = [projectsDoc, providersDoc, maintenanceDoc].map((d) => d?.updated).filter(Boolean).sort();
+  const dates = [projectsDoc, providersDoc].map((d) => d?.updated).filter(Boolean).sort();
 
   return {
     projects,
     providers,
-    tasks,
     projectById,
     providerById,
     warnings,

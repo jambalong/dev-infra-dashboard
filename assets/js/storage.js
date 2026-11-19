@@ -2,7 +2,6 @@
 
 export const KEYS = {
   theme: 'did.theme',
-  maintenance: 'did.maintenance.v1',
 };
 
 export function readJson(key, fallback) {
@@ -45,14 +44,4 @@ export function remove(key) {
   } catch {
     /* ignore */
   }
-}
-
-/** Maintenance state: { [taskId]: { completedAt: ISO string } } */
-export function loadChecklist() {
-  const state = readJson(KEYS.maintenance, {});
-  return state && typeof state === 'object' && !Array.isArray(state) ? state : {};
-}
-
-export function saveChecklist(state) {
-  writeJson(KEYS.maintenance, state);
 }

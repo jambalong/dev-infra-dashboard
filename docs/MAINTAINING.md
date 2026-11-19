@@ -2,7 +2,7 @@
 
 ## Update the inventory
 
-All content comes from three files in `data/`. No code changes are needed. After editing, run `npm test` (validates references and values, then runs unit tests).
+All content comes from two files in `data/`. No code changes are needed. After editing, run `npm test` (validates references and values, then runs unit tests).
 
 ### Providers: `data/providers.json`
 
@@ -56,10 +56,6 @@ All content comes from three files in `data/`. No code changes are needed. After
 - `icon`: optional path to an image under `assets/icons/projects/` (svg, png, ico or webp), shown on project cards. Projects without one get an initial-letter tile. Save a copy of the favicon in the repo rather than hotlinking it, and keep to public icons.
 - `services[].cost`: optional `{ "amount": 12.87, "currency": "USD", "billing": "annual" }` for a cost that belongs to one project, such as a domain. If the provider's own `cost.amount` is `null`, the provider's cost is the total of these service costs. Give a shared item (for example a subdomain of a domain already priced on another project) no cost, so it shows as "Shared" and is not counted twice.
 - `repository`, `website`: public `https://` URLs or `null`/omitted. Use the live site and the public repo only.
-
-### Maintenance: `data/maintenance.json`
-
-Each task has `id`, `title`, optional `cadence`, `due` (`YYYY-MM-DD` or `null`), `notes`, and `providers` / `projects` id lists. An empty scope means "all infrastructure". Completion state is stored per browser in `localStorage` (`did.maintenance.v1`), keyed by task `id`. A new browser starts with every task pending. Changing a task `id` loses its saved state.
 
 ### Add a provider or project
 

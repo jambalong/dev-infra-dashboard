@@ -19,7 +19,7 @@ const SENSITIVE = [
   [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, 'private key'],
 ];
 
-export function validate({ projects, providers, maintenance }) {
+export function validate({ projects, providers }) {
   const errors = [];
   const err = (msg) => errors.push(msg);
   const isStr = (v) => typeof v === 'string' && v.trim() !== '';
@@ -44,15 +44,14 @@ export function validate({ projects, providers, maintenance }) {
     return seen;
   };
 
-  for (const [name, doc, key] of [['projects.json', projects, 'projects'], ['providers.json', providers, 'providers'], ['maintenance.json', maintenance, 'tasks']]) {
+  for (const [name, doc, key] of [['projects.json', projects, 'projects'], ['providers.json', providers, 'providers']]) {
     if (doc?.schemaVersion !== 1) err(`${name}: schemaVersion must be 1`);
     if (!Array.isArray(doc?.[key])) err(`${name}: "${key}" must be an array`);
   }
   if (errors.length) return errors;
 
   const providerIds = ids(providers.providers, 'providers.json');
-  const projectIds = ids(projects.projects, 'projects.json');
-  ids(maintenance.tasks, 'maintenance.json');
+  ids(projects.projects, 'projects.json');
 
   let currency = null;
   for (const p of providers.providers) {
@@ -101,14 +100,6 @@ export function validate({ projects, providers, maintenance }) {
     }
   }
 
-  for (const t of maintenance.tasks) {
-    const w = `maintenance.json[${t.id}]`;
-    if (!isStr(t.title)) err(`${w}: title is required`);
-    if (t.due != null && !/^\d{4}-\d{2}-\d{2}$/.test(t.due)) err(`${w}.due: must be YYYY-MM-DD or null`);
-    for (const id of t.providers ?? []) if (!providerIds.has(id)) err(`${w}: unknown provider "${id}"`);
-    for (const id of t.projects ?? []) if (!projectIds.has(id)) err(`${w}: unknown project "${id}"`);
-  }
-
   // Public-safety scan over every string value.
   const scan = (value, path) => {
     if (typeof value === 'string') {
@@ -116,7 +107,7 @@ export function validate({ projects, providers, maintenance }) {
     } else if (Array.isArray(value)) value.forEach((v, i) => scan(v, `${path}[${i}]`));
     else if (value && typeof value === 'object') for (const [k, v] of Object.entries(value)) scan(v, `${path}.${k}`);
   };
-  scan({ projects, providers, maintenance }, 'data');
+  scan({ projects, providers }, 'data');
 
   return errors;
 }
@@ -131,14 +122,14 @@ async function readDoc(name) {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
-    const docs = { projects: await readDoc('projects.json'), providers: await readDoc('providers.json'), maintenance: await readDoc('maintenance.json') };
+    const docs = { projects: await readDoc('projects.json'), providers: await readDoc('providers.json') };
     const errors = validate(docs);
     if (errors.length) {
       console.error(`Data validation failed (${errors.length}):`);
       for (const e of errors) console.error(`  - ${e}`);
       process.exit(1);
     }
-    console.log(`Data OK: ${docs.projects.projects.length} projects, ${docs.providers.providers.length} providers, ${docs.maintenance.tasks.length} tasks.`);
+    console.log(`Data OK: ${docs.projects.projects.length} projects, ${docs.providers.providers.length} providers.`);
   } catch (e) {
     console.error(e.message);
     process.exit(1);

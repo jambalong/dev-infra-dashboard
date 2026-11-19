@@ -6,7 +6,6 @@ A static dashboard that tracks personal projects, hosting providers, databases, 
 - **Projects**: project cards and detail pages, with search and status/type filters.
 - **Providers**: provider directory with plan, cost and the projects that use each one.
 - **Costs**: monthly/annual breakdown. Unknown costs are shown separately and are never counted as zero.
-- **Maintenance**: checklist for backups, billing, renewals and reviews. Progress is saved in your browser.
 
 Dark, light and system themes. The sidebar collapses to a menu on mobile.
 
@@ -28,7 +27,7 @@ Opening `index.html` directly from disk will not work, because browsers block `f
 index.html            app shell
 assets/css/           styles
 assets/js/            app.js (routing, theme), data.js, costs.js, views/
-data/                 projects.json, providers.json, maintenance.json
+data/                 projects.json, providers.json
 scripts/              validate-data.mjs, serve.mjs
 tests/                node:test suites
 docs/                 documentation (start at docs/README.md)

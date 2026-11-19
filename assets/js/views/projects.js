@@ -1,8 +1,6 @@
 import { h, externalLink } from '../dom.js';
 import { badge, emptyState, pageHeader, projectCard, serviceCost } from '../components.js';
 import { ENVIRONMENTS, ROLES, STATUSES, TYPES, labelOf } from '../schema.js';
-import { loadChecklist } from '../storage.js';
-import { renderTaskRow, tasksFor, toggleTask } from './maintenance.js';
 import { statusBadge } from '../components.js';
 
 // Filter state survives navigation within the session.
@@ -126,22 +124,6 @@ export function renderProjectDetail(ctx, id) {
       )
     : emptyState('No services recorded for this project.');
 
-  const tasks = tasksFor({ project }, inv);
-  const taskList = h('ul', { class: 'tasks' });
-  const drawTasks = () => {
-    const s = loadChecklist();
-    taskList.replaceChildren(
-      ...tasks.map((t) =>
-        renderTaskRow(t, s, (task, checked) => {
-          toggleTask(task, checked);
-          ctx.refreshBadges?.();
-          drawTasks();
-        }),
-      ),
-    );
-  };
-  drawTasks();
-
   return h(
     'div',
     null,
@@ -149,7 +131,6 @@ export function renderProjectDetail(ctx, id) {
     pageHeader(project.name, project.description ?? 'No description.'),
     h('section', { class: 'card' }, h('dl', { class: 'meta' }, meta.map(([k, v]) => h('div', { class: 'kv' }, h('dt', null, k), h('dd', null, v))))),
     h('section', { class: 'card' }, h('h2', null, 'Services'), servicesTable),
-    tasks.length ? h('section', { class: 'card' }, h('h2', null, 'Related maintenance'), taskList) : null,
     project.notes.length ? h('section', { class: 'card' }, h('h2', null, 'Notes'), h('ul', { class: 'notes' }, project.notes.map((n) => h('li', null, n)))) : null,
   );
 }

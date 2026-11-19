@@ -2,7 +2,6 @@ import { h } from './dom.js';
 import { loadInventory } from './data.js';
 import { KEYS, readString, remove, writeString } from './storage.js';
 import { emptyState } from './components.js';
-import { pendingTasks, renderMaintenance } from './views/maintenance.js';
 import { renderOverview } from './views/overview.js';
 import { renderProjectDetail, renderProjects } from './views/projects.js';
 import { renderProviders } from './views/providers.js';
@@ -13,7 +12,6 @@ const ROUTES = [
   { path: 'projects', title: 'Projects', render: renderProjects },
   { path: 'providers', title: 'Providers', render: renderProviders },
   { path: 'costs', title: 'Costs', render: renderCosts },
-  { path: 'maintenance', title: 'Maintenance', render: renderMaintenance },
 ];
 
 const view = document.getElementById('view');
@@ -67,14 +65,6 @@ function parseHash() {
   return { section: parts[0] ?? 'overview', id: parts[1] ?? null };
 }
 
-function refreshBadges() {
-  const el = document.getElementById('nav-maintenance-count');
-  if (!el || !ctx) return;
-  const n = pendingTasks(ctx.inv).length;
-  el.textContent = String(n);
-  el.hidden = n === 0;
-}
-
 function route() {
   if (!ctx) return;
   const { section, id } = parseHash();
@@ -111,7 +101,7 @@ function route() {
 async function boot() {
   try {
     const inv = await loadInventory();
-    ctx = { inv, refreshBadges };
+    ctx = { inv };
   } catch (err) {
     console.error(err);
     view.replaceChildren(
@@ -130,7 +120,6 @@ async function boot() {
     document.getElementById('warnings-text').textContent = `${ctx.inv.warnings.length} data warning${ctx.inv.warnings.length === 1 ? '' : 's'}: ${ctx.inv.warnings[0]}`;
   }
 
-  refreshBadges();
   window.addEventListener('hashchange', route);
   route();
 }

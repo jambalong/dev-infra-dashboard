@@ -5,7 +5,7 @@ import { buildInventory } from '../assets/js/data.js';
 import { validate } from '../scripts/validate-data.mjs';
 
 const read = async (n) => JSON.parse(await readFile(new URL(`../data/${n}.json`, import.meta.url), 'utf8'));
-const load = async () => ({ projects: await read('projects'), providers: await read('providers'), maintenance: await read('maintenance') });
+const load = async () => ({ projects: await read('projects'), providers: await read('providers') });
 const clone = (o) => structuredClone(o);
 
 test('shipped data passes validation', async () => {
@@ -20,7 +20,7 @@ test('shipped data has the expected projects and providers', async () => {
 
 test('project/provider relationships resolve both ways', async () => {
   const d = await load();
-  const inv = buildInventory(d.projects, d.providers, d.maintenance);
+  const inv = buildInventory(d.projects, d.providers);
   assert.deepEqual(inv.warnings, []);
   const neon = inv.providerById.get('neon');
   assert.deepEqual(neon.projects.map((p) => p.id), ['pangu-terminal', 'homebase']);
@@ -31,7 +31,7 @@ test('project/provider relationships resolve both ways', async () => {
 
 test('providers on free plans are recorded as free; the domain registrar is a known annual cost', async () => {
   const d = await load();
-  const inv = buildInventory(d.projects, d.providers, d.maintenance);
+  const inv = buildInventory(d.projects, d.providers);
   for (const p of inv.providers) {
     if (p.id === 'porkbun') {
       assert.equal(p.costInfo.state, 'paid');
@@ -47,17 +47,16 @@ test('missing optional fields and dangling references do not throw', () => {
   const inv = buildInventory(
     { projects: [{ id: 'a', services: [{ provider: 'ghost' }] }, { id: 'b', name: 'B' }] },
     { providers: [{ id: 'p' }] },
-    { tasks: [{ id: 't', title: 'T', providers: ['nope'] }] },
   );
   assert.equal(inv.projects.length, 2);
   assert.equal(inv.projectById.get('a').services[0].providerRef, null);
-  assert.equal(inv.warnings.length, 2);
+  assert.equal(inv.warnings.length, 1);
   assert.equal(inv.providers[0].costInfo.state, 'unknown');
 });
 
 test('empty or malformed documents yield an empty inventory', () => {
-  const inv = buildInventory(null, {}, undefined);
-  assert.deepEqual([inv.projects, inv.providers, inv.tasks], [[], [], []]);
+  const inv = buildInventory(null, {});
+  assert.deepEqual([inv.projects, inv.providers], [[], []]);
 });
 
 test('validator catches broken references, enums and duplicate ids', async () => {
@@ -104,7 +103,7 @@ test('shipped projects with icons point at existing files', async () => {
 
 test('domain costs are attributed per project and not repeated on every project', async () => {
   const d = await load();
-  const inv = buildInventory(d.projects, d.providers, d.maintenance);
+  const inv = buildInventory(d.projects, d.providers);
   const own = (id) => inv.projectById.get(id).services.find((s) => s.provider === 'porkbun').costInfo;
   assert.equal(own('personal-website').annual, 12.87);
   assert.equal(own('lunrfast').annual, 23.69);
@@ -116,7 +115,6 @@ test('a provider with its own plan cost is not overridden by service costs', () 
   const inv = buildInventory(
     { projects: [{ id: 'a', services: [{ provider: 'p', cost: { amount: 5, billing: 'annual' } }] }] },
     { providers: [{ id: 'p', cost: { amount: 0, billing: 'monthly' } }] },
-    {},
   );
   assert.equal(inv.providerById.get('p').costInfo.state, 'free');
   assert.equal(inv.providerById.get('p').costDerived, undefined);

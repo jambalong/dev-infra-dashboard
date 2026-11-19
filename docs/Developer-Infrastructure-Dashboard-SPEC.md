@@ -21,7 +21,6 @@ It provides a single place to understand:
 - Which databases and backend services they use.
 - Which third-party integrations they depend on.
 - What hosting plans and costs are involved.
-- Which infrastructure maintenance tasks need attention.
 
 The dashboard is intended for personal developer operations, not public marketing.
 
@@ -73,7 +72,7 @@ Provider costs, plan details, and resource limits should be editable and initial
 
 ## 3. Application Structure
 
-The application should have five primary sections.
+The application has four primary sections. A maintenance checklist was originally planned and has been removed; recurring reminders (backups, billing, domain renewals) are kept in a calendar instead, because checklist state stored in the browser cannot sync between devices.
 
 ### A. Overview
 
@@ -86,7 +85,6 @@ Display summary cards for:
 - Planned projects.
 - Total infrastructure providers.
 - Known monthly infrastructure costs.
-- Outstanding maintenance tasks.
 
 Below the summary cards, display:
 
@@ -105,10 +103,6 @@ A collection of project cards showing:
 **Infrastructure Distribution**
 
 A breakdown of services by provider.
-
-**Upcoming Maintenance**
-
-A small list of outstanding operational tasks.
 
 ### B. Projects
 
@@ -183,31 +177,6 @@ Convert annual expenses into monthly equivalents for comparison.
 
 Do not treat unknown costs as zero. Display them separately.
 
-### E. Maintenance
-
-A lightweight infrastructure checklist.
-
-Example tasks:
-
-- Review provider billing.
-- Verify database backups.
-- Check domain renewals.
-- Review free-tier usage.
-- Verify account MFA.
-- Remove unused services.
-- Review deployment workflows.
-- Test application recovery procedures.
-
-Each task should include:
-
-- Task title.
-- Associated project or provider.
-- Status: pending, completed.
-- Optional due date.
-- Optional notes.
-
-Completed tasks should retain their completion date.
-
 ---
 
 ## 4. Data Architecture
@@ -227,8 +196,7 @@ dev-infra-dashboard/
 │   └── icons/
 ├── data/
 │   ├── projects.json      projects and the services each one uses
-│   ├── providers.json     providers, plans and costs
-│   └── maintenance.json   checklist template
+│   └── providers.json     providers, plans and costs
 ├── scripts/               validate-data.mjs, serve.mjs
 ├── tests/
 ├── .github/workflows/deploy.yml
@@ -243,7 +211,7 @@ A project references providers through a `services` list. Each entry has a role 
 
 Provider-to-project links are derived from `services`, not stored twice.
 
-Maintenance tasks can reference projects and providers. Use stable identifiers rather than display names.
+Use stable identifiers rather than display names.
 
 Example project data:
 
@@ -333,7 +301,6 @@ Persist the selected theme locally using browser local storage.
 - Provider cards.
 - Status badges.
 - Cost indicators.
-- Maintenance checklist.
 - Search field.
 - Filter controls.
 - Detail panels.
@@ -358,12 +325,11 @@ Use text labels alongside color indicators for accessibility.
 2. Display all providers.
 3. Display project-provider relationships.
 4. Display infrastructure costs.
-5. Display maintenance tasks.
-6. Filter projects by status and type.
-7. Search projects and providers.
-8. Display individual project details.
-9. Support dark and light themes.
-10. Load information from JSON configuration files.
+5. Filter projects by status and type.
+6. Search projects and providers.
+7. Display individual project details.
+8. Support dark and light themes.
+9. Load information from JSON configuration files.
 
 ### Nice-to-have features
 
@@ -405,7 +371,7 @@ Keep the technology deliberately simple.
 | JSON | Inventory data |
 | GitHub Pages | Hosting |
 | GitHub Actions | Deployment |
-| Local Storage | Theme preference and maintenance checklist state |
+| Local Storage | Theme preference |
 
 No React, Vue, Angular, Node.js backend, Ruby on Rails, or database is necessary.
 
@@ -516,7 +482,6 @@ Validate JSON data before deployment to catch malformed configuration.
 ### Phase 3 — Operational Information
 
 - Build cost tracking.
-- Build maintenance checklist.
 - Add search and filtering.
 
 ### Phase 4 — Polish
@@ -546,7 +511,6 @@ The MVP is complete when:
 - [ ] Project-provider relationships are accurate.
 - [ ] Planned projects are clearly distinguished from active projects.
 - [ ] Costs support unknown values.
-- [ ] Maintenance tasks can be tracked.
 - [ ] Inventory data is separate from UI code.
 - [ ] Search and filtering work.
 - [ ] Dark and light themes work.
